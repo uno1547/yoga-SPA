@@ -1,9 +1,11 @@
 import Page from './Page.js'
+import Update from './Update.js'
 import { getData } from '../utility/get-data.js'
-import { viewer, getQueries, showMemberInfo, showMemberClass, showMemberPayments, showMemberAttendance } from '../utility/member/member.js'
+import { getQueries } from '../utility/member/member.js'
 
 export default class extends Page {
   // 음 아직까지는 상속을 하는 의미를 모르겠음(여기선 사실상 각페이지 메소드로 새로쓰느느건데)
+  // 오버라이딩의 장점? 이 뭔거지?
   // 굳이 상속안하고 각자 메서드 정의 해도 되는거 아닌가?
   // 또 constructor를 쓸일이 있나 싶음
   constructor() {
@@ -368,48 +370,51 @@ export default class extends Page {
     })
 
     updateInfoBtn.addEventListener("click", () => {
-      super.initPage() //비우고
-      this.rootDiv.innerHTML = `
-        <div class="inner">
-    <!--  -->
-    <h2>정보를 수정해 주세요</h2>
-    <form action="">
-      <div class ="group wrap">
-        <div id="group-text">회원 그룹</div>
-        <div id="group-radio">
-          <label>개인 레슨<input type="radio" name="group" value = "pt" required></label>
-          <label>그룹 레슨<input type="radio" name="group" value = "group" required></label>
-          <label>마이솔<input type="radio" name="group" value = "misole" required></label>
-        </div>
-      </div>
-      <div class ="teacher wrap">
-        <div id="teacher-text">담당 강사</div>
-        <div id="teacher-radio">
-          <label>김영원<input type="radio" name="teacher" value = "김영원" required></label>
-          <label>최수경<input type="radio" name="teacher" value = "최수경" required></label>
-          <label>김예림<input type="radio" name="teacher" value = "김예림" required></label>
-        </div>
-      </div>
-      <div class ="name wrap">
-        <label for="name"><div id="name-text">회원 이름</div></label>
-        <input id="name" type="text" required autocomplete="off" name="name">
-        <label>남<input type="radio" name="gender" value="남" required></label>
-        <label>여<input type="radio" name="gender" value="여" required></label>
-      </div>
-      <div class ="tel wrap">
-        <label for="tel"><div id="tel-text">연락처</div></label>
-        <input id="tel" type="tel" placeholder="010-1234-5678" required maxlength="13" autocomplete="off" name="phone_number">
-      </div>
-      <div class ="bthday wrap">
-        <label for="bthday"><div id="bthday-text">생년월일</div></label>
-        <input id="bthday" type="date" placeholder="YYYYMMDD" required autocomplete="off" name="birth_date">  
-      </div>
-      <input type="button" value = "삭제">
-      <input type="submit" value = "수정">
-    </form>
-    <!--  -->
-  </div>`
-      this.styleTag.href = "/static/css/update-info.css"
+      console.log('정보수정 view!!');
+      const updatePage = new Update(this.curMemberId)
+      updatePage.renderPage()
+      // super.initPage() //비우고
+  //     this.rootDiv.innerHTML = `
+  //       <div class="inner">
+  //   <!--  -->
+  //   <h2>정보를 수정해 주세요</h2>
+  //   <form action="">
+  //     <div class ="group wrap">
+  //       <div id="group-text">회원 그룹</div>
+  //       <div id="group-radio">
+  //         <label>개인 레슨<input type="radio" name="group" value = "pt" required></label>
+  //         <label>그룹 레슨<input type="radio" name="group" value = "group" required></label>
+  //         <label>마이솔<input type="radio" name="group" value = "misole" required></label>
+  //       </div>
+  //     </div>
+  //     <div class ="teacher wrap">
+  //       <div id="teacher-text">담당 강사</div>
+  //       <div id="teacher-radio">
+  //         <label>김영원<input type="radio" name="teacher" value = "김영원" required></label>
+  //         <label>최수경<input type="radio" name="teacher" value = "최수경" required></label>
+  //         <label>김예림<input type="radio" name="teacher" value = "김예림" required></label>
+  //       </div>
+  //     </div>
+  //     <div class ="name wrap">
+  //       <label for="name"><div id="name-text">회원 이름</div></label>
+  //       <input id="name" type="text" required autocomplete="off" name="name">
+  //       <label>남<input type="radio" name="gender" value="남" required></label>
+  //       <label>여<input type="radio" name="gender" value="여" required></label>
+  //     </div>
+  //     <div class ="tel wrap">
+  //       <label for="tel"><div id="tel-text">연락처</div></label>
+  //       <input id="tel" type="tel" placeholder="010-1234-5678" required maxlength="13" autocomplete="off" name="phone_number">
+  //     </div>
+  //     <div class ="bthday wrap">
+  //       <label for="bthday"><div id="bthday-text">생년월일</div></label>
+  //       <input id="bthday" type="date" placeholder="YYYYMMDD" required autocomplete="off" name="birth_date">  
+  //     </div>
+  //     <input type="button" value = "삭제">
+  //     <input type="submit" value = "수정">
+  //   </form>
+  //   <!--  -->
+  // </div>`
+  //     this.styleTag.href = "/static/css/update-info.css"
     })
 
     //표시된 html에 이벤트 리스너 추가하기

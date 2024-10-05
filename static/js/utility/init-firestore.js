@@ -10,4 +10,5 @@ const app = initializeApp({
   appId: "1:256248240983:web:07dcebbcb04debc34b3c12"
 })
 
-export const moduleDB = getFirestore(app)
+const moduleDB = getFirestore(app)
+export default moduleDB

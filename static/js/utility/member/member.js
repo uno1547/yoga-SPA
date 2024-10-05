@@ -312,4 +312,5 @@ function showMemberAttendance(attendances) {
   calendar.render()
 }
 
-export {viewer, getQueries, showMemberInfo, showMemberClass, showMemberPayments, showMemberAttendance}
+// export {viewer, getQueries, showMemberInfo, showMemberClass, showMemberPayments, showMemberAttendance}
+export { getQueries } //여러개 export할때는 {} 필수인듯함 한개만 export할경우, export default

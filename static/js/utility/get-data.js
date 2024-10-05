@@ -1,4 +1,4 @@
-import { moduleDB } from './init-firestore.js'
+import moduleDB from './init-firestore.js'
 import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js';
 
 const db = moduleDB
