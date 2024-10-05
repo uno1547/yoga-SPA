@@ -1,6 +1,8 @@
 import Page from './Page.js'
 import Update from './Update.js'
 import NewMember from './NewMember.js'
+import NewPayment from './NewPayment.js'
+
 import { getData } from '../utility/get-data.js'
 import { getQueries } from '../utility/member/member.js'
 
@@ -318,19 +320,7 @@ export default class extends Page {
     const prevMemberBtn = document.querySelector("button#prevMember")
     const nextMemberBtn = document.querySelector("button#nextMember")
     const updateInfoBtn = document.querySelector("button#update-info")
-    /*
-      <div class = "update">
-        <button id="sign-up">신규 회원 등록</button>
-        <button id="new-pay">회원 통합 결제</button>
-        <button id="attendance-update">실시간 방문 현황</button>
-        <button id="show-expire">만기 회원 현황</button>
-      </div>
-      <div class = "buttons">
-        <button id="prevMember"><</button>
-        <button id="nextMember">></button>
-        <button id="update-info">정보 수정</button>
-      </div>    
-    */
+
     const toSignUpBtn = document.querySelector("button#sign-up")
     const newPaymentBtn = document.querySelector("button#new-pay")
     const toAttendanceBtn = document.querySelector("button#attendance-update")
@@ -368,8 +358,8 @@ export default class extends Page {
     })
 
     newPaymentBtn.addEventListener("click", () => {
-      // const newPaymentPage = new NewMember()
-      // newPaymentPage.renderPage()
+      const newPaymentPage = new NewPayment(this.curMemberId)
+      newPaymentPage.renderPage()
     })
 
     toAttendanceBtn.addEventListener("click", () => {
