@@ -43,6 +43,7 @@ console.log(user.age);
 객체 이외의 값 return시 무시
 */
 
+/*
 async function main() {
   await initPage() // 이 내부의 await에도 불구하고, 아래 between, afterFetch()가 먼저 실행됨!
   // 이 initPage도 기다려야함
@@ -69,7 +70,7 @@ function afterFetch() {
 }
 
 main()
-
+*/
 
 class Page {
   constructor() {
@@ -125,3 +126,10 @@ question
 /*
   이벤트 핸들러함수 내에서, 익명함수, 화살표 함수에 따라 내부의 this동작이 달라진다!!
 */
+
+
+const obj = { name : "peter", id : 1547, age : 24 }
+const {name, age} = obj // id는 안써도 됌
+console.log(name, age); // 알아서 매칭되는듯함
+
+

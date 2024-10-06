@@ -1,5 +1,5 @@
 import Page from "./Page.js";
-import { tableClickHandler, tableMouseLeaveHandler } from "../utility/member/new-payment.js";
+import { tableClickHandler, tableMouseLeaveHandler, formHandler, formSubmitHandler, makePaymentData } from "../utility/member/new-payment.js";
 export default class extends Page {
   constructor(userId) {
     super()
@@ -249,7 +249,17 @@ export default class extends Page {
 
     const form = document.querySelector('form')
     //form의 input이벤트 발생시, 3개의 radio다선택했다면 결제정보를띄움(!null ? 추가 : 텍스트만바꿈)
-    // form.addEventListener("change", )
+    console.log(form);
+    form.addEventListener("change", formHandler)
+
+    // form.addEventListener("submit", formSubmitHandler)
+    form.addEventListener("submit", (evt) => {
+      console.log(this.userId);
+      evt.preventDefault()
+      makePaymentData(this.userId)
+      // formSubmitHandler(evt, this.userId)
+      console.log('만들기완료');
+    })
   }
 
   // renderPage() {
@@ -258,3 +268,21 @@ export default class extends Page {
   // }
 
 }
+
+/*
+// import getHello from ""
+class Person {
+  constructor(userId) {
+    this.user_id = userId
+  }
+
+  hello() {
+    const hello = getHello()
+  }
+}
+
+// module file
+getHello() {
+
+}
+*/
