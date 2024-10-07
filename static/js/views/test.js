@@ -133,3 +133,31 @@ const {name, age} = obj // id는 안써도 됌
 console.log(name, age); // 알아서 매칭되는듯함
 
 
+// question 
+/*
+
+async function getData() {
+    console.log('getting data')
+    await new Promise((resolve) => {
+      setTimeout(() => {
+          resolve()
+      },100)
+    })
+    console.log('data is here')
+}
+
+function hello() {
+  console.log('next');
+}
+
+function main() {
+  getData()
+  hello()
+}
+main()
+
+// getting data
+// next
+// data is here
+
+*/

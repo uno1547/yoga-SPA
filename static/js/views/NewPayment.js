@@ -258,7 +258,7 @@ export default class extends Page {
       evt.preventDefault()
       makePaymentData(this.userId)
       // formSubmitHandler(evt, this.userId)
-      console.log('만들기완료');
+      console.log('만들기완료'); // 위의 makePaymentData보다 먼저 실행됨;;
     })
   }
 

@@ -2,6 +2,7 @@ import Page from './Page.js'
 import Update from './Update.js'
 import NewMember from './NewMember.js'
 import NewPayment from './NewPayment.js'
+import LiveVisit from './LiveVisit.js'
 
 import { getData } from '../utility/get-data.js'
 import { getQueries } from '../utility/member/member.js'
@@ -363,8 +364,8 @@ export default class extends Page {
     })
 
     toAttendanceBtn.addEventListener("click", () => {
-      // const newPaymentPage = new NewMember()
-      // newPaymentPage.renderPage()
+      const liveVisitPage = new LiveVisit()
+      liveVisitPage.renderPage()
     })
 
     showExpireBtn.addEventListener("click", () => {
