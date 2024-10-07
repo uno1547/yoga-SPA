@@ -1,5 +1,7 @@
 import getCommaFormattedNumbers from "../get-formatted-num.js"
 import { getData } from "../get-data.js"
+import moduleDB from "../init-firestore.js";
+import {addDoc, collection} from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js';
 class Class {
   constructor(type, perWeek, term, cashPrice, creditPrice) {
     this.class_type = type,  
@@ -163,8 +165,7 @@ async function setPaymentObj(obj, id) {
   console.log(id);
   const result = await getData("members", {field : "user_id", compare_op : "==", value : id})
   console.log(result);
-  const name = result[0].name
-  payment.user_name = name
+  payment.user_name = result[0].name
   const payDate = new Date()
   const payYear = payDate.getFullYear()
   const payMonth = String(payDate.getMonth() + 1).padStart(2, '0')
@@ -189,11 +190,11 @@ function setPaymentClassInfo(obj, key) {
   uploadPayment(obj)
 }
 // setpaymentclassinfo에서 넘어온 obj를 DB에 등록
-async function uploadPayment(obj) {
-  const docRef = await addDoc(collection(db, "payments"), obj)
-  alert("새결제가 등록되었습니다")
-  location.href = "/src/member-manage.html"
-}
+// async function uploadPayment(obj) {
+//   const docRef = await addDoc(collection(db, "payments"), obj)
+//   alert("새결제가 등록되었습니다")
+//   location.href = "/src/member-manage.html"
+// }
 
 // DB에 올릴 class객체 생성
 /*
@@ -206,11 +207,13 @@ async function uploadPayment(obj) {
   7. pay_date
   8. expire_date
 */
-function makePaymentData(id) {
-  const user = getData("members", {field : "user_id", compare_op : "==", value : id}) // promise
-  console.log(user);
-
+async function makePaymentData(id) {
   const payment = {}
+
+  const user = await getData("members", {field : "user_id", compare_op : "==", value : id}) // promise
+  console.log(user);
+  payment.user_name = user[0].name
+  payment.user_id = id
   const form = document.querySelector('form')
   const formData = new FormData(form)
   const memberObj = Object.fromEntries(formData)
@@ -245,12 +248,14 @@ function makePaymentData(id) {
   payment.pay_date = payDateStr
   payment.expire_date = expireDateStr
 
+  /*
   user.then((result) => {
     payment.user_name = result[0].name
     console.log('이름 불러와서 설정!!');
-  }) //얘가 실행안되고 지나칠수도있는건가?? 만약 promise가 resolve되기전에 아래문장이 실행될수있는건가? 그러네.. 
+  }) 
+  */
+  //얘가 실행안되고 지나칠수도있는건가?? 만약 promise가 resolve되기전에 아래문장이 실행될수있는건가? 그러네.. 
   // 모든 비동기는 그러면 await하는게 맞는건가
-  payment.user_id = id
   console.log('Id설정!!');
 
   console.log(payment);
@@ -261,11 +266,16 @@ function makePaymentData(id) {
   // expireDate = expireDate.toLocaleDateString().slice(0, -1)
   // console.log(payDate, expireDate);
   // console.log(payment);
+  await uploadPayment(payment)
   /* 
   */
 }
 
-
+async function uploadPayment(obj) {
+  console.log('새결제 등록!!');
+  const docRef = await addDoc(collection(moduleDB, "payments"), obj)
+  alert("새결제가 등록되었습니다")
+}
 /*
 // memberObj 받아서 user_id, pay_year, pay_month, pay_day 처리 pay_teacher, pay_method도
 //입력후 '결제등록'누르면 formData로 객체데이터 생성
